@@ -6,22 +6,22 @@ import seaborn as sns
 from scipy import stats
 sns.set(font_scale=2)
 st.sidebar.markdown('ABテスト対象のデータを入力してください')
-visitors_a = st.sidebar.number_input('AのCLICK数', value=100)
-conversion_a = st.sidebar.number_input('AのCV数', value=50)
+visitors_a = st.sidebar.number_input('Aの分母', value=100)
+conversion_a = st.sidebar.number_input('Aの分子', value=50)
 cvr_a = conversion_a / visitors_a
 st.sidebar.markdown(f'AのCV率: **{"{:.1%}".format(cvr_a)}**')
 
-visitors_b = st.sidebar.number_input('BのCLICK数', value=100)
-conversion_b = st.sidebar.number_input('BのCV数', value=50)
+visitors_b = st.sidebar.number_input('Bの分母', value=100)
+conversion_b = st.sidebar.number_input('Bの分子', value=50)
 cvr_b = conversion_b / visitors_b
-st.sidebar.markdown(f'BのCV率: **{"{:.1%}".format(cvr_b)}**')
+st.sidebar.markdown(f'Bの母比率: **{"{:.1%}".format(cvr_b)}**')
 st.header('ABテストアプリ')
-st.markdown(r'''ABテスト結果のCLICK数とCV数を入力''')
+st.markdown(r'''ABテスト結果の分母と分子を入力''')
 st.subheader('テスト対象')
 st.markdown(rf'''
     <table>
       <tr>
-        <th>パターン</th><th>CLICK数</th><th>CV数</th><th>CV率</th>
+        <th>パターン</th><th>分母</th><th>分子</th><th>母比率</th>
       </tr>
       <tr>
         <td>A</td><td>{visitors_a}</td><td>{conversion_a}</td><td>{"{:.1%}".format(cvr_a)}</td>
@@ -80,7 +80,7 @@ else:
     <center><font size=7 color="#FF4B00">有意差なし</font></center>
     ''', unsafe_allow_html=True)
 st.subheader('ベイジアンABテスト')
-st.markdown('ベイズ推論を活用したABテスト。A, BそれぞれのCVRがどの程度信用できるのかを確認可能。')
+st.markdown('ベイズ推論を活用したABテスト。A, Bそれぞれの母比率がどの程度信用できるのかを確認可能。')
 alpha_prior = 1
 beta_prior = 1
 posterior_A = stats.beta(alpha_prior + conversion_a, beta_prior + visitors_a - conversion_a)
@@ -98,7 +98,7 @@ ax.set_xlabel('CVR', fontsize='xx-large')
 ax.set_title('distribution of CVR', fontsize='xx-large')
 ax.legend(loc='upper right', fontsize='xx-large')
 fig.tight_layout()
-st.subheader('CVRの信用度の分布')
+st.subheader('母比率の信用度の分布')
 st.pyplot(fig)
 st.markdown(fr'''
   <center><font size=7>CVRがA < Bとなる確率: {"{:.1%}".format(prob)}</font></center>

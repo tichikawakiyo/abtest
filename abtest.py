@@ -24,10 +24,10 @@ st.markdown(rf'''
         <th>パターン</th><th>分母</th><th>分子</th><th>母比率</th>
       </tr>
       <tr>
-        <td>A</td><td>{visitors_a}</td><td>{conversion_a}</td><td>{"{:.1%}".format(cvr_a)}</td>
+        <td>A</td><td>{visitors_a}</td><td>{conversion_a}</td><td>{"{:.2%}".format(cvr_a)}</td>
       </tr>
       <tr>
-        <td>B</td><td>{visitors_b}</td><td>{conversion_b}</td><td>{"{:.1%}".format(cvr_b)}</td>
+        <td>B</td><td>{visitors_b}</td><td>{conversion_b}</td><td>{"{:.2%}".format(cvr_b)}</td>
       </tr>
     </table>
     ''', unsafe_allow_html=True)

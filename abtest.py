@@ -32,30 +32,6 @@ st.markdown(rf'''
     </table>
     ''', unsafe_allow_html=True)
 st.subheader('ABテスト')
-st.markdown('統計的仮説検定のABテスト(統計的仮説検定)の結果。（分散不均等を仮定したt検定）')
-a = np.zeros(visitors_a)
-a[:conversion_a] = 1
-b = np.zeros(visitors_ｂ)
-b[:conversion_ｂ] = 1
-res = stats.ttest_ind(a, b, equal_var=False)
-st.markdown(f'p値: **{"{:.4}".format(res[1])}**')
-if res[1] <= 0.05:
-  st.markdown(r'''
-    <center><font size=7 color="#00B06B">95%の信頼度で有意差あり</font></center>
-    ''', unsafe_allow_html=True)
-elif res[1] <= 0.1:
-  st.markdown(r'''
-    <center><font size=7 color="#F2E700">90%の信頼度で有意差あり</font></center>
-    ''', unsafe_allow_html=True)
-elif res[1] <= 0.2:
-  st.markdown(r'''
-    <center><font size=7 color="#F2E700">80%の信頼度で有意差あり</font></center>
-    ''', unsafe_allow_html=True)
-else:
-  st.markdown(r'''
-    <center><font size=7 color="#FF4B00">有意差なし</font></center>
-    ''', unsafe_allow_html=True)
-
 st.markdown('二項検定のABテストの結果。(サンプル少ない場合に利用)')
 data = np.matrix([ [ conversion_a, visitors_a ], [ conversion_b, visitors_b ] ])
 p_a = visitors_a / (visitors_a+visitors_b)

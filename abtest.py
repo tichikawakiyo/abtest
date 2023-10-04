@@ -9,7 +9,7 @@ st.sidebar.markdown('ABテスト対象のデータを入力してください')
 visitors_a = st.sidebar.number_input('Aの分母', value=100)
 conversion_a = st.sidebar.number_input('Aの分子', value=50)
 cvr_a = conversion_a / visitors_a
-st.sidebar.markdown(f'AのCV率: **{"{:.1%}".format(cvr_a)}**')
+st.sidebar.markdown(f'Aの母比率: **{"{:.1%}".format(cvr_a)}**')
 
 visitors_b = st.sidebar.number_input('Bの分母', value=100)
 conversion_b = st.sidebar.number_input('Bの分子', value=50)

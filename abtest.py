@@ -32,7 +32,7 @@ st.markdown(rf'''
     </table>
     ''', unsafe_allow_html=True)
 st.subheader('ABテスト')
-st.markdown('二項検定のABテストの結果。(サンプル少ない場合に利用)')
+st.markdown('二項検定のABテストの結果。')
 data = np.matrix([ [ conversion_a, visitors_a ], [ conversion_b, visitors_b ] ])
 p_a = visitors_a / (visitors_a+visitors_b)
 conversion_total = np.sum(data, axis=0).item(0, 0)
@@ -55,27 +55,3 @@ else:
   st.markdown(r'''
     <center><font size=7 color="#FF4B00">有意差なし</font></center>
     ''', unsafe_allow_html=True)
-st.subheader('ベイジアンABテスト')
-st.markdown('ベイズ推論を活用したABテスト。A, Bそれぞれの母比率がどの程度信用できるのかを確認可能。')
-alpha_prior = 1
-beta_prior = 1
-posterior_A = stats.beta(alpha_prior + conversion_a, beta_prior + visitors_a - conversion_a)
-posterior_B = stats.beta(alpha_prior + conversion_b, beta_prior + visitors_b - conversion_b)
-samples = 450000
-samples_posterior_A = posterior_A.rvs(samples)
-samples_posterior_B = posterior_B.rvs(samples)
-prob = (samples_posterior_A < samples_posterior_B).mean()
-fig = plt.figure(figsize=(20,10))
-ax = fig.add_subplot(111)
-sns.distplot(samples_posterior_A, ax=ax, label='CVR of A')
-sns.distplot(samples_posterior_B, ax=ax, label='CVR of B')
-ax.set_ylabel('KDE', fontsize='xx-large')
-ax.set_xlabel('CVR', fontsize='xx-large')
-ax.set_title('distribution of CVR', fontsize='xx-large')
-ax.legend(loc='upper right', fontsize='xx-large')
-fig.tight_layout()
-st.subheader('母比率の信用度の分布')
-st.pyplot(fig)
-st.markdown(fr'''
-  <center><font size=7>CVRがA < Bとなる確率: {"{:.1%}".format(prob)}</font></center>
-  ''', unsafe_allow_html=True)
